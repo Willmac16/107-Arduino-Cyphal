@@ -127,9 +127,14 @@ public:
   void spinSome();
   /* Must be called from the application upon the
    * reception of a can frame.
+   * Frame is timestamped upon handoff to 107-Arduino-Cyphal
    */
   void onCanFrameReceived(CanardFrame const & frame);
 
+  /* Adds option to specify a timestamp for frame reception
+   *
+   */
+  void onCanFrameReceived(CanardFrame const & frame, CanardMicrosecond const timestamp);
 
   bool enqueue_transfer(CanardMicrosecond const tx_timeout_usec,
                         CanardTransferMetadata const * const transfer_metadata,

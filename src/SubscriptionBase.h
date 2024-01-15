@@ -58,7 +58,13 @@ protected:
   [[nodiscard]] TransferMetadata fillMetadata(CanardRxTransfer const & transfer)
   {
     TransferMetadata transfer_metadata;
-    transfer_metadata.remote_node_id = static_cast<uint16_t>(transfer.metadata.remote_node_id);
+    transfer_metadata.priority = static_cast<uint8_t>(transfer.metadata.priority);
+    transfer_metadata.transfer_kind = static_cast<uint8_t>(transfer.metadata.transfer_kind);
+    transfer_metadata.port_id = static_cast<uint16_t>(transfer.metadata.port_id);
+    transfer_metadata.remote_node_id = static_cast<uint8_t>(transfer.metadata.remote_node_id);
+    transfer_metadata.transfer_id = static_cast<uint8_t>(transfer.metadata.transfer_id);
+
+    transfer_metadata.timestamp_usec = static_cast<uint64_t>(transfer.timestamp_usec);
 
     return transfer_metadata;
   }

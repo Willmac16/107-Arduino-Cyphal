@@ -108,8 +108,12 @@ void Node::processPortList()
     _opt_port_list_pub.value()->update();
 }
 
+void Node::onCanFrameReceived(CanardFrame const &frame)
+{
+  onCanFrameReceived(frame, _micros_func());
+}
 
-void Node::onCanFrameReceived(CanardFrame const & frame)
+void Node::onCanFrameReceived(CanardFrame const &frame, CanardMicrosecond timestamp)
 {
   if (_mtu_bytes == CANARD_MTU_CAN_CLASSIC)
   {
