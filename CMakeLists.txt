@@ -14,6 +14,7 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 ##########################################################################
 option(BUILD_EXAMPLES "Build all examples provided with this library" OFF)
+option(BUNDLED_TYPES "Use the nunavut transpiled type definitions and support bundled in this library" ON)
 ##########################################################################
 add_library(${PROJECT_NAME} STATIC
   src/Node.cpp
@@ -23,9 +24,13 @@ add_library(${PROJECT_NAME} STATIC
 ##########################################################################
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Werror)
 ##########################################################################
-target_include_directories(${PROJECT_NAME} PUBLIC src extras/cyphal++/include src/libcanard src/libo1heap)
+target_include_directories(${PROJECT_NAME} PUBLIC extras/cyphal++/include src/libcanard src/libo1heap)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 ##########################################################################
+if(BUNDLED_TYPES)
+  target_include_directories(${PROJECT_NAME} PUBLIC src)
+endif()
+
 if(BUILD_EXAMPLES)
   add_subdirectory(examples/CAN/host-example-01-opencyphal-basic-node)
 endif()
